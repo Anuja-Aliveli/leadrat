@@ -31,11 +31,19 @@ const initializeAndConnect = async () => {
 initializeAndConnect();
 
 app.get("/seats", async (request, response) => {
-    const dbQuery = `select * from layout`;
+  const array = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"];
+  let result = [];
+  
+  for (const each of array) {
+    const dbQuery = `select * from layout where row='${each}';`;
     const queryResult = await db.all(dbQuery);
-    try {
-        response.status(200).json({seats: queryResult});
-    } catch(err) {
-        response.status(500).json({errMsg: err.message});
-    }
+    result.push({["row" + each]:queryResult});
+  }
+
+  try {
+    response.status(200).json({ seats: result });
+  } catch (err) {
+    response.status(500).json({ errMsg: err.message });
+  }
 });
+

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SeatingLayout from '../SeatingLayout';
 import "./index.css";
 
 const Selection = () => {
@@ -44,6 +45,7 @@ const Selection = () => {
           <button className="time" type="button" disabled>06:00</button>
           <button className="time" type="button" disabled>09:00</button>
       </div>
+      <SeatingLayout tickets={tickets} ticketType={ticketType} />
     </div>
   );
 };
