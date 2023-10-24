@@ -47,3 +47,19 @@ app.get("/seats", async (request, response) => {
   }
 });
 
+app.post('/book', async (request, response) => {
+  try {
+    const bookArray = request.body;
+    
+    await Promise.all(bookArray.map(async (eachItem) => {
+      const updateQuery = `UPDATE layout SET sold = 1 WHERE row = ? AND id = ?`;
+      const params = [eachItem.row, eachItem.id];
+      await db.run(updateQuery, params);
+    })); 
+    
+    response.status(200).json({ message: 'Seats booked successfully' });
+  } catch (error) {
+    response.status(500).json({ error: error.message });
+  }
+});
+

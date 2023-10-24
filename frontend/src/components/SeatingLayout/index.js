@@ -23,6 +23,10 @@ const SeatingLayout = (props) => {
     handleSelectedIds(value);
   };
 
+  const handleCheckTickets = () => {
+    setCheckTickets(false);
+  };
+
   const onSeatButton = async (seat, index, rowName) => {
     if (seat.type !== ticketType[0]) {
       alert("Please select correct type of ticket");
@@ -35,7 +39,11 @@ const SeatingLayout = (props) => {
         bookArray.push(seat.id + i);
       }
     }
-    updateTotalCount(bookArray);
+    const objBookArray = bookArray.map((eachItem) => ({
+      row: rowName[3],
+      id: eachItem,
+    }));
+    updateTotalCount(objBookArray);
     if (ticketsCount > bookArray.length) {
       const count = ticketsCount - bookArray.length;
       onCount(count);
@@ -58,19 +66,20 @@ const SeatingLayout = (props) => {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const url = `http://localhost:5000/seats`;
-        const response = await fetch(url);
-        if (response.ok === true) {
-          const data = await response.json();
-          setSeatsArray(data.seats);
-        }
-      } catch (err) {
-        console.log(err.message);
+  const fetchData = async () => {
+    try {
+      const url = `http://localhost:5000/seats`;
+      const response = await fetch(url);
+      if (response.ok === true) {
+        const data = await response.json();
+        setSeatsArray(data.seats);
       }
-    };
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
   return (
@@ -86,6 +95,8 @@ const SeatingLayout = (props) => {
         checkTickets={checkTickets}
         ticketType={ticketType}
         selectedIds={selectedIds}
+        handleCheckTickets={handleCheckTickets}
+        fetchData={fetchData}
       />
     </>
   );

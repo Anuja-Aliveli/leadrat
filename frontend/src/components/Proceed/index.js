@@ -1,13 +1,39 @@
 import "./index.css";
 
 const Proceed = (props) => {
-  const { tickets, checkTickets, ticketType, selectedIds } = props;
+  const {
+    tickets,
+    checkTickets,
+    ticketType,
+    selectedIds,
+    handleCheckTickets,
+    fetchData,
+  } = props;
   const price =
     ticketType[0] === "P"
       ? tickets * 470
       : ticketType[0] === "E"
       ? tickets * 450
       : tickets * 430;
+  const onPay = async () => {
+    const url = `http://localhost:5000/book`;
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(selectedIds),
+    };
+    const response = await fetch(url, options);
+    if (response.ok === true) {
+      alert("Booked Successfully");
+      handleCheckTickets(false);
+      fetchData();
+    } else {
+      alert("Booking Failed");
+    }
+  };
+
   return (
     <>
       {checkTickets === false && (
@@ -31,7 +57,7 @@ const Proceed = (props) => {
         </div>
       )}
       {checkTickets === true && (
-        <button type="button" className="pay">
+        <button type="button" className="pay" onClick={onPay}>
           Pay-Rs.{price}
         </button>
       )}
