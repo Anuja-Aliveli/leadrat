@@ -69,3 +69,19 @@ select option {
   border: none;
   color: #fff;
 }
+
+@media (max-width: 576px) {
+  .header-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  .right-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+}

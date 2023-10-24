@@ -50,3 +50,13 @@
   border: none;
   border-radius: 5px;
 }
+@media (max-width: 576px) {
+  .options-container {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    height: auto;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+}
