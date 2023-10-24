@@ -68,7 +68,7 @@ const SeatingLayout = (props) => {
 
   const fetchData = async () => {
     try {
-      const url = `http://localhost:5000/seats`;
+      const url = `https://leadratbackend.onrender.com/seats`;
       const response = await fetch(url);
       if (response.ok === true) {
         const data = await response.json();

@@ -1,20 +1,15 @@
 GET http://localhost:5000/seats/
 Content-Type: application/json
 ###
-POST http://localhost:5000/book/
+GET https://leadratbackend.onrender.com/seats/
+Content-Type: application/json
+###
+POST https://leadratbackend.onrender.com/book/
 Content-Type: application/json
 
 [
     {
         "row": "A",
         "id": 2
-    },
-    {
-        "row": "A",
-        "id": 3
-    },
-    {
-        "row": "A",
-        "id": 4
     }
 ]

@@ -16,7 +16,7 @@ const Proceed = (props) => {
       ? tickets * 450
       : tickets * 430;
   const onPay = async () => {
-    const url = `http://localhost:5000/book`;
+    const url = `https://leadratbackend.onrender.com/book`;
     const options = {
       method: "POST",
       headers: {
