@@ -1,18 +1,29 @@
 import { useState } from "react";
-import SeatingLayout from '../SeatingLayout';
+import SeatingLayout from "../SeatingLayout";
 import "./index.css";
 
 const Selection = () => {
-  const [tickets, setTickets] = useState(1);
+  const [tickets, setTickets] = useState(4);
   const [ticketType, setTicketType] = useState("Premium");
-  
+  const [ticketsCount, setTicketsCount] = useState(tickets);
+  const [selectedIds, setSelectedIds] = useState([]);
+
   const handleType = (event) => {
     setTicketType(event.target.value);
-  }
+  };
 
   const handleTicket = (event) => {
     setTickets(event.target.value);
-  }
+    setTicketsCount(parseInt(event.target.value));
+  };
+
+  const updateCount = (value) => {
+    setTicketsCount(value);
+  };
+
+  const handleSelectedIds = (idsArray) => {
+    setSelectedIds([...selectedIds,...idsArray]);
+  };
 
   return (
     <div className="page-background">
@@ -41,11 +52,24 @@ const Selection = () => {
         </div>
       </div>
       <div className="time-container">
-          <button className="time active" type="button">02:00</button>
-          <button className="time" type="button" disabled>06:00</button>
-          <button className="time" type="button" disabled>09:00</button>
+        <button className="time active" type="button">
+          02:00
+        </button>
+        <button className="time" type="button" disabled>
+          06:00
+        </button>
+        <button className="time" type="button" disabled>
+          09:00
+        </button>
       </div>
-      <SeatingLayout tickets={tickets} ticketType={ticketType} />
+      <SeatingLayout
+        tickets={tickets}
+        ticketType={ticketType}
+        ticketsCount={ticketsCount}
+        updateCount={updateCount}
+        selectedIds={selectedIds}
+        handleSelectedIds={handleSelectedIds}
+      />
     </div>
   );
 };
